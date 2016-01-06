@@ -3,7 +3,7 @@
     "name": "Alvaro Juste <juste.alvaro@gmail.com>"
   },
   "name": "jaune-util",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "utils for jaune system",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "ajuste/jaune-util.git"
   },
-  "_id": "jaune-util@1.0.0",
+  "_id": "jaune-util@0.0.1",
   "directories": {
     "directories.lib": "lib"
   },
