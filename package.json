@@ -1,25 +1,31 @@
 {
-  "author": {
-    "name": "Alvaro Juste <juste.alvaro@gmail.com>"
-  },
+  "author": "Alvaro Juste <juste.alvaro@gmail.com>",
   "name": "jaune-util",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "utils for jaune system",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./test/*"
   },
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "ajuste/jaune-util.git"
+    "url": "git+https://github.com/ajuste/jaune-util.git"
   },
-  "_id": "jaune-util@0.0.1",
   "directories": {
-    "directories.lib": "lib"
+    "test": "test"
   },
   "engine": "node >= 0.10.0",
-  "scripts": {
-    "test": "mocha ./test/*"
+  "bugs": {
+    "url": "https://github.com/ajuste/jaune-util/issues"
+  },
+  "homepage": "https://github.com/ajuste/jaune-util#readme",
+  "keywords": [
+    "jaune",
+    "util"
+  ],
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "node-uuid": "^1.4.7"
   }
 }
