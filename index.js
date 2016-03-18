@@ -9,6 +9,5 @@ module.exports = {
     WriteReadStream : require("./lib/streams").WriteReadStream,
   },
   Convert           : require("./lib/convert"),
-  Debug             : require("./lib/debug"),
   Validator         : require("./lib/validator").Validator
 };

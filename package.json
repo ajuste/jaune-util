@@ -1,11 +1,12 @@
 {
   "author": "Alvaro Juste <juste.alvaro@gmail.com>",
   "name": "jaune-util",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "utils for jaune system",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./test/*"
+    "test": "mocha ./test/*",
+    "prepublish": "make compile"
   },
   "license": "ISC",
   "repository": {
@@ -27,5 +28,8 @@
   "dependencies": {
     "lodash": "^3.10.1",
     "node-uuid": "^1.4.7"
+  },
+  "devDependencies": {
+    "coffee-script": "^1.10.0"
   }
 }
