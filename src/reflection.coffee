@@ -134,7 +134,7 @@ evaluateName = (exprs, args, context, globals) ->
   throw new Error 'Expression should be a string' unless typeof exprs is 'string'
 
   nodes = compileExpression exprs, args, globals
-  reduce nodes, this.executeNode, context ? global, this
+  reduce nodes, executeNode, context ? global
 
 module.exports =
   Reflection : {createInstance, evaluateNameAndArgs, compileExpression,
