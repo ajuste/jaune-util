@@ -61,7 +61,14 @@ evaluateNameAndArgs = (fullName, args, context, globals) ->
 
   {fn, args : resolvedArguments}
 
-compileExpression = (expr, context, args = {}, globals) ->
+###*
+* @function Returns a compiled expression
+* @param    {String} expr The name of the reference to be compiled
+* @param    {Object} [args] Arguments for the function
+* @param    {Object} [globals] References that might be required in look up
+* @returns  {Array}  Compiled nodes
+###
+compileExpression = (expr, args = {}, globals = {}) ->
 
   chain expr.split(".")
   .map ((e) ->
@@ -126,7 +133,7 @@ evaluateName = (exprs, args, context, globals) ->
 
   throw new Error 'Expression should be a string' unless typeof exprs is 'string'
 
-  nodes = compileExpression exprs, context, args, globals
+  nodes = compileExpression exprs, args, globals
   reduce nodes, this.executeNode, context ? global, this
 
 module.exports =
