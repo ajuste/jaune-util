@@ -138,4 +138,4 @@ evaluateName = (exprs, args, context, globals) ->
 
 module.exports =
   Reflection : {createInstance, evaluateNameAndArgs, compileExpression,
-    evaluateName}
+    evaluateName, executeNode}
