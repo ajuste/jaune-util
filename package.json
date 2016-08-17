@@ -1,7 +1,7 @@
 {
   "author": "Alvaro Juste <juste.alvaro@gmail.com>",
   "name": "jaune-util",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "utils for jaune system",
   "main": "index.js",
   "scripts": {
