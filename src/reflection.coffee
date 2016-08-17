@@ -2,22 +2,20 @@
 * @file   Source code for Reflection utility.
 * @author Alvaro Juste
 ###
-"use strict";
+'use strict'
 
-{isFunction, isObject, isString, chain, reduce} = require 'lodash'
 {join} = require 'path'
 
-INST_REGEX      = /^\[(\w{1})\((.*)\)\]$/;
-GLOBAL_REGEX    = /^\[g\((.*)\)\]$/;
-TOKEN_REQUIRE   = "r";
-TOKEN_MODULE    = "m";
-TOKEN_NAMESPACE = "n";
-TOKEN_CALL      = "c";
-TOKEN_INSTANCE  = "i";
+INST_REGEX = /^\[(\w{1})\((.*)\)\]$/
+GLOBAL_REGEX = /^\[g\((.*)\)\]$/
+TOKEN_REQUIRE = 'r'
+TOKEN_MODULE = 'm'
+TOKEN_NAMESPACE = 'n'
+TOKEN_CALL = 'c'
+TOKEN_INSTANCE = 'i'
 
 ###*
-*  Create an instance of the given constructor with the given arguments.
-*
+* Create an instance of the given constructor with the given arguments.
 * @param   {Function} constructor The constructing function.
 * @param   {Array} args Arguments for the constructor
 * @returns The instance.
@@ -47,17 +45,17 @@ createInstance = (fullName, args, context, globals) ->
 * @param    {Object} [globals] References that might be required in look up
 * @returns  {Object} Object with function and arguments
 ###
-evaluateNameAndArgs = (fullName, args, context, globals) ->
+evaluateNameAndArgs = (fullName, args = [], context, globals) ->
 
-  fn                = evaluateName fullName, context, args, globals
-  resolvedArguments = args;
+  fn = evaluateName fullName, context, args, globals
+  resolvedArguments = args
 
-  throw new Error "Full name points to invalid function #{fullName}" unless isFunction fn
+  throw new Error "Full name points to invalid function #{fullName}" unless typeof fn is 'function'
 
-  if isObject globals
-    resolvedArguments = chain (args)
-                        .map  (e -> if isString(e) and e.indexOf('_') is 0 then globals[e.substring(1)] else e)
-                        .value()
+  if typeof globals is 'object'
+    resolvedArguments =
+      args
+        .map  (e -> if typeof e is 'string' and e.indexOf('_') is 0 then globals[e.substring(1)] else e)
 
   {fn, args : resolvedArguments}
 
@@ -70,33 +68,32 @@ evaluateNameAndArgs = (fullName, args, context, globals) ->
 ###
 compileExpression = (expr, args = {}, globals = {}) ->
 
-  chain expr.split(".")
-  .map ((e) ->
+  expr
 
-    isOperation = INST_REGEX.test e
-    operation = if isOperation then e.replace INST_REGEX, '$1' else TOKEN_NAMESPACE
-    params = if isOperation then e.replace INST_REGEX, '$2' else e;
+    .split '.'
 
-    switch operation
+    .map (e) ->
 
-      when TOKEN_CALL, TOKEN_INSTANCE
+      isOperation = INST_REGEX.test e
+      operation = if isOperation then e.replace INST_REGEX, '$1' else TOKEN_NAMESPACE
+      params = if isOperation then e.replace INST_REGEX, '$2' else e
 
-        params =
-          chain  params.split(",")
-          .map   ((e) -> e.trim())
-          .filter((e) -> !!e)
-          .map   ((e) ->
+      switch operation
 
-            value = args[e];
-            isGlobal = GLOBAL_REGEX.test value
+        when TOKEN_CALL, TOKEN_INSTANCE
 
-            return globals[value.replace GLOBAL_REGEX, '$1'] if isGlobal
-            value
-          )
-          .value()
+          params =
 
-    {params, operation})
-    .value()
+            for param in params.split(',')
+
+              continue unless (param = param.trim()).length
+              value = args[param]
+              if GLOBAL_REGEX.test value
+                globals[value.replace GLOBAL_REGEX, '$1']
+              else
+                value
+
+      {params, operation}
 
 executeNode = (current, node) ->
 
@@ -114,12 +111,12 @@ executeNode = (current, node) ->
        node = current[params];
 
     when TOKEN_CALL
-      unless isFunction current
+      unless typeof current is 'function'
         throw new Error 'Call instruction can only be perfomed on functions'
       node = current.apply undefined, params
 
     when TOKEN_INSTANCE
-      unless isFunction current
+      unless typeof current is 'function'
         throw new Error 'New instruction can only be perfomed on functions'
       node = applyNew current, node.params
 
@@ -130,11 +127,8 @@ executeNode = (current, node) ->
   node
 
 evaluateName = (exprs, args, context, globals) ->
-
   throw new Error 'Expression should be a string' unless typeof exprs is 'string'
-
-  nodes = compileExpression exprs, args, globals
-  reduce nodes, executeNode, context ? global
+  compileExpression(exprs, args, globals).reduce executeNode, context ? global
 
 module.exports =
   Reflection : {createInstance, evaluateNameAndArgs, compileExpression,
