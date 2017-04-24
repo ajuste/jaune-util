@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 {inherits} = require 'util'
 Stream = require 'stream'

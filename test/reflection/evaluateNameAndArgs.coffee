@@ -11,4 +11,6 @@ describe 'evaluateNameAndArgs', ->
   describe 'pointing to valid reference', ->
 
     it 'returns correct value of chain', ->
-      equal '11', evaluateName '[r(/test/reflection/dummyObj)].fn.[c(p1, p1)]', {p1: 1}
+      equal '11',
+        evaluateName '[r(/test-compiled/reflection/dummyObj)].fn.[c(p1, p1)]',
+          {p1: 1}

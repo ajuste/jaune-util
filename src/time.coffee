@@ -1,7 +1,7 @@
 ###*
 * @file Source code for time utility.
 ###
-"use strict";
+"use strict"
 
 ###*
 * @class Represents time.
@@ -18,9 +18,11 @@ class Time
 
         when 1 then Time.parse(arguments[0]).time
 
-        when 2 then new Date(1990, 1, 1, parseInt(arguments[0], 10), parseInt(arguments[1], 10))
+        when 2 then new Date(1990, 1, 1, parseInt(arguments[0], 10),
+          parseInt(arguments[1], 10))
 
-        else  new Date(1990, 1, 1, parseInt(arguments[0], 10), parseInt(arguments[1], 10), parseInt(arguments[2], 10))
+        else  new Date(1990, 1, 1, parseInt(arguments[0], 10),
+          parseInt(arguments[1], 10), parseInt(arguments[2], 10))
 
   ###*
   * @function Validates if time is valid.
@@ -53,11 +55,17 @@ class Time
   ###
   toString : (includeSeconds) ->
 
-    hours = "#{if (hours = @time.getHours()) < 10 then '0' else ''}#{hours}"
-    minutes = "#{if (minutes = @time.getMinutes()) < 10 then '0' else ''}#{minutes}"
-    seconds = "#{if (seconds = @time.getSeconds()) < 10 then '0' else ''}#{seconds}"
+    hours = "#{if (hours = @time.getHours()) <
+      10 then '0' else ''}#{hours}"
+    minutes = "#{if (minutes = @time.getMinutes()) <
+      10 then '0' else ''}#{minutes}"
+    seconds = "#{if (seconds = @time.getSeconds()) <
+      10 then '0' else ''}#{seconds}"
 
-    if includeSeconds then "#{hours}:#{minutes}:#{seconds}" else "#{hours}:#{minutes}"
+    if includeSeconds
+      "#{hours}:#{minutes}:#{seconds}"
+    else
+      "#{hours}:#{minutes}"
 
 ###*
 * @function Parses time from a string representation.
@@ -71,7 +79,8 @@ Time.parse = (input) ->
 
   switch steps.length
     when 2 then new Time parseInt(hours, 10), parseInt(minutes, 10)
-    when 3 then new Time parseInt(hours, 10), parseInt(minutes, 10), parseInt(seconds, 10)
+    when 3 then new Time parseInt(hours, 10), parseInt(minutes, 10),
+      parseInt(seconds, 10)
     else new Time -1, -1, -1
 
 global.Time = Time

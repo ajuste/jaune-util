@@ -2,7 +2,7 @@
 * @file   Source code for boolean extensions.
 * @author Alvaro Juste
 ###
-"use strict";
+"use strict"
 
 ###*
 * Tries to convert a value to bool
@@ -15,5 +15,6 @@ Boolean.parse = (input) ->
   switch typeof input
     when 'boolean' then input
     when 'number'  then (if isNaN input then no else input isnt 0)
-    when 'string'  then (if input.length is 0 or input is '0' then false else 'false' isnt input.toLowerCase())
-    else !!input;
+    when 'string'  then (if input.length is 0 or
+      input is '0' then no else 'false' isnt input.toLowerCase())
+    else !!input

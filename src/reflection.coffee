@@ -50,12 +50,17 @@ evaluateNameAndArgs = (fullName, args = [], context, globals) ->
   fn = evaluateName fullName, context, args, globals
   resolvedArguments = args
 
-  throw new Error "Full name points to invalid function #{fullName}" unless typeof fn is 'function'
+  unless typeof fn is 'function'
+    throw new Error "Full name points to invalid function #{fullName}"
 
   if typeof globals is 'object'
     resolvedArguments =
       args
-        .map  (e -> if typeof e is 'string' and e.indexOf('_') is 0 then globals[e.substring(1)] else e)
+        .map (e) ->
+          if typeof e is 'string' and e.indexOf('_') is 0
+            globals[e.substring(1)]
+          else
+            e
 
   {fn, args : resolvedArguments}
 
@@ -75,7 +80,10 @@ compileExpression = (expr, args = {}, globals = {}) ->
     .map (e) ->
 
       isOperation = INST_REGEX.test e
-      operation = if isOperation then e.replace INST_REGEX, '$1' else TOKEN_NAMESPACE
+      operation = (if isOperation
+        e.replace INST_REGEX, '$1'
+      else
+        TOKEN_NAMESPACE)
       params = if isOperation then e.replace INST_REGEX, '$2' else e
 
       switch operation
@@ -102,13 +110,16 @@ executeNode = (current, node) ->
   switch operation
 
     when TOKEN_REQUIRE
-       node = require if params.indexOf('/') isnt -1 then join(process.cwd(), params) else params
+      node = require if params.indexOf('/') isnt -1
+        join(process.cwd(), params)
+      else
+        params
 
     when TOKEN_MODULE
-       node = require params
+      node = require params
 
     when TOKEN_NAMESPACE
-       node = current[params];
+      node = current[params]
 
     when TOKEN_CALL
       unless typeof current is 'function'
@@ -127,7 +138,8 @@ executeNode = (current, node) ->
   node
 
 evaluateName = (exprs, args, context, globals) ->
-  throw new Error 'Expression should be a string' unless typeof exprs is 'string'
+  unless typeof exprs is 'string'
+    throw new Error 'Expression should be a string'
   compileExpression(exprs, args, globals).reduce executeNode, context ? global
 
 module.exports =

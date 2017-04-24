@@ -119,11 +119,13 @@ describe 'compileExpression', ->
 
       it 'has 1 param', -> equal 1, @node[1].params.length
 
-      it 'first parameter value is "param 1"', -> equal 'param 1', @node[1].params[0]
+      it 'first parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[0]
 
     describe 'with 3 params non-global', ->
 
-      before -> @node = compileExpression 'func.[c(p1,p2,p1)]', p1: 'param 1', p2: 'param 2'
+      before -> @node = compileExpression(
+        'func.[c(p1,p2,p1)]', p1: 'param 1', p2: 'param 2')
 
       after -> @node = null
 
@@ -139,15 +141,19 @@ describe 'compileExpression', ->
 
       it 'has 3 params', -> equal 3, @node[1].params.length
 
-      it 'first parameter value is "param 1"', -> equal 'param 1', @node[1].params[0]
+      it 'first parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[0]
 
-      it 'second parameter value is "param 2"', -> equal 'param 2', @node[1].params[1]
+      it 'second parameter value is "param 2"', ->
+        equal 'param 2', @node[1].params[1]
 
-      it 'third parameter value is "param 1"', -> equal 'param 1', @node[1].params[2]
+      it 'third parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[2]
 
     describe 'with 4: 3 params non-global and 1 global', ->
 
-      before -> @node = compileExpression 'func.[c(p1,p2,p1,p3)]', {p1: 'param 1', p2: 'param 2', p3: '[g(pg)]'}, {pg: 'param g'}
+      before -> @node = compileExpression 'func.[c(p1,p2,p1,p3)]', {
+        p1: 'param 1', p2: 'param 2', p3: '[g(pg)]'}, {pg: 'param g'}
 
       after -> @node = null
 
@@ -163,13 +169,17 @@ describe 'compileExpression', ->
 
       it 'has 4 params', -> equal 4, @node[1].params.length
 
-      it 'first parameter value is "param 1"', -> equal 'param 1', @node[1].params[0]
+      it 'first parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[0]
 
-      it 'second parameter value is "param 2"', -> equal 'param 2', @node[1].params[1]
+      it 'second parameter value is "param 2"', ->
+        equal 'param 2', @node[1].params[1]
 
-      it 'third parameter value is "param 1"', -> equal 'param 1', @node[1].params[2]
+      it 'third parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[2]
 
-      it 'fourth parameter value is "param g"', -> equal 'param g', @node[1].params[3]
+      it 'fourth parameter value is "param g"', ->
+        equal 'param g', @node[1].params[3]
 
   describe 'instance token', ->
 
@@ -209,11 +219,13 @@ describe 'compileExpression', ->
 
       it 'has 1 param', -> equal 1, @node[1].params.length
 
-      it 'first parameter value is "param 1"', -> equal 'param 1', @node[1].params[0]
+      it 'first parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[0]
 
     describe 'with 3 params non-global', ->
 
-      before -> @node = compileExpression 'func.[i(p1,p2,p1)]', p1: 'param 1', p2: 'param 2'
+      before -> @node = compileExpression(
+        'func.[i(p1,p2,p1)]', p1: 'param 1', p2: 'param 2')
 
       after -> @node = null
 
@@ -229,15 +241,19 @@ describe 'compileExpression', ->
 
       it 'has 3 params', -> equal 3, @node[1].params.length
 
-      it 'first parameter value is "param 1"', -> equal 'param 1', @node[1].params[0]
+      it 'first parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[0]
 
-      it 'second parameter value is "param 2"', -> equal 'param 2', @node[1].params[1]
+      it 'second parameter value is "param 2"', ->
+        equal 'param 2', @node[1].params[1]
 
-      it 'third parameter value is "param 1"', -> equal 'param 1', @node[1].params[2]
+      it 'third parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[2]
 
     describe 'with 4: 3 params non-global and 1 global', ->
 
-      before -> @node = compileExpression 'func.[i(p1,p2,p1,p3)]', {p1: 'param 1', p2: 'param 2', p3: '[g(pg)]'}, {pg: 'param g'}
+      before -> @node = compileExpression 'func.[i(p1,p2,p1,p3)]', {
+        p1: 'param 1', p2: 'param 2', p3: '[g(pg)]'}, {pg: 'param g'}
 
       after -> @node = null
 
@@ -253,10 +269,14 @@ describe 'compileExpression', ->
 
       it 'has 4 params', -> equal 4, @node[1].params.length
 
-      it 'first parameter value is "param 1"', -> equal 'param 1', @node[1].params[0]
+      it 'first parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[0]
 
-      it 'second parameter value is "param 2"', -> equal 'param 2', @node[1].params[1]
+      it 'second parameter value is "param 2"', ->
+        equal 'param 2', @node[1].params[1]
 
-      it 'third parameter value is "param 1"', -> equal 'param 1', @node[1].params[2]
+      it 'third parameter value is "param 1"', ->
+        equal 'param 1', @node[1].params[2]
 
-      it 'fourth parameter value is "param g"', -> equal 'param g', @node[1].params[3]
+      it 'fourth parameter value is "param g"', ->
+        equal 'param g', @node[1].params[3]

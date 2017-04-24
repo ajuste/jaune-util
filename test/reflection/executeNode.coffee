@@ -16,31 +16,42 @@ describe 'executeNode', ->
   describe 'module node', ->
 
     it 'returns member by require', ->
-      equal 'function', typeof executeNode null, {operation: 'm', params: 'assert'}
+      equal 'function',
+        typeof executeNode null, {operation: 'm', params: 'assert'}
 
   describe 'require node', ->
 
     describe 'require without slash', ->
 
       it 'returns member by require', ->
-        equal 'function', typeof executeNode null, {operation: 'r', params: 'assert'}
+        equal 'function',
+          typeof executeNode null, {operation: 'r', params: 'assert'}
 
     describe 'require with slash', ->
 
       it 'returns member by require', ->
-        equal 'function', typeof executeNode null, {operation: 'r', params: './node_modules/assert'}
+        equal 'function', typeof executeNode null, {
+          operation: 'r',
+          params: './node_modules/assert'
+        }
 
   describe 'module node', ->
 
     it 'returns member by require', ->
-      equal 'function', typeof executeNode null, {operation: 'm', params: 'assert'}
+      equal 'function', typeof executeNode null, {
+        operation: 'm',
+        params: 'assert'
+      }
 
   describe 'call node', ->
 
     describe 'with function', ->
 
       it 'returns called member', ->
-        equal 'foobar', executeNode ((p)->"#{p}bar"), {operation: 'c', params: ['foo']}
+        equal 'foobar', executeNode ((p) -> "#{p}bar"), {
+          operation: 'c',
+          params: ['foo']
+        }
 
     describe 'with no function', ->
 

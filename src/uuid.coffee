@@ -2,9 +2,9 @@
 * @file   Source code for UUID.
 * @author Alvaro Juste
 ###
-"use strict";
+"use strict"
 
-Uuid = require "node-uuid"
+Uuid = require "uuid"
 
 ###*
 * @function Create a new uuid.
@@ -17,7 +17,8 @@ create = (buffer) -> Uuid.v4 {}, buffer || new Buffer(16)
 * @function Create a short uuid
 * @returns {String} The short uuid
 ###
-createShort = -> "0000#{(Math.random() * Math.pow(36,4) << 0).toString(36)}".slice(-4)
+createShort = -> "0000#{(Math.random() *
+  Math.pow(36,4) << 0).toString(36)}".slice(-4)
 
 ###*
 * @function Creates a new uuid in plain text as hexadecimal
@@ -57,7 +58,8 @@ parse = (input, buffer) -> Uuid.parse input, buffer ? new Buffer(16)
 * @param {Buffer} uuid2 Second uuid.
 * @returns {Boolean} True when equal
 ###
-equal = (uuid1, uuid2) -> uuid1.toString().toLowerCase() is uuid2.toString().toLowerCase()
+equal = (uuid1, uuid2) -> uuid1.toString().toLowerCase() is
+  uuid2.toString().toLowerCase()
 
 ###*
 * @function Returns an empty uuid

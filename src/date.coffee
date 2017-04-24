@@ -66,7 +66,8 @@ Date::differenceInHours = (date) ->
  * @function Removes time component from a date.
  * @return   {Date} New date
  ###
-Date::removeTime = -> new Date this.getFullYear(), this.getMonth(), this.getDate()
+Date::removeTime = ->
+  new Date this.getFullYear(), this.getMonth(), this.getDate()
 
 ###*
  * @function Tries to get locale date string for a particular locale.
@@ -83,7 +84,8 @@ Date::tryToLocaleDateString = (locale) ->
 * @function Gets standard date format used in the application.
 * @return   {String} Representation of date
 ###
-Date::toStandardDate = -> [this.getFullYear(), this.getMonth() + 1, this.getDate()].join '-'
+Date::toStandardDate = ->
+  [@getFullYear(), @getMonth() + 1, @getDate()].join '-'
 
 ###*
 * @function Parses standard representation to date.
@@ -93,7 +95,8 @@ Date::toStandardDate = -> [this.getFullYear(), this.getMonth() + 1, this.getDate
 Date.parseStandard = (input) ->
   try
     [hours, minutes, seconds] = input.split '-'
-    new Date parseInt(hours, 10), parseInt(minutes, 10) - 1, parseInt(seconds, 10)
+    new Date parseInt(hours, 10), parseInt(minutes, 10) - 1,
+      parseInt(seconds, 10)
   catch
     new Date(-1)
 
@@ -102,4 +105,5 @@ Date.parseStandard = (input) ->
 * @param    {String} val Value containing value and quantity
 * @returns  {Number} The number of milliseconds.
 ###
-Date.getTimeFromEnum = (val) -> parseInt(val, 10) * UnitMult[val.replace(/[0-9]/g, '')]
+Date.getTimeFromEnum = (val) ->
+  parseInt(val, 10) * UnitMult[val.replace(/[0-9]/g, '')]

@@ -2,7 +2,7 @@
 * @file   Source code for Convert.
 * @author Alvaro Juste
 ###
-"use strict";
+"use strict"
 
 {empty, parse, asV4} = require("./uuid").UUID
 

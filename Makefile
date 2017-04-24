@@ -15,4 +15,11 @@ compile:
 
 # Compile tests
 compile-tests: compile
-	@$(COFFEE) --output ./test --no-header --compile -b ./test-src
+	@$(COFFEE) --output ./test-compiled --no-header --compile -b ./test
+
+# Run lint for coffeescript
+run-coffee-link:
+	./node_modules/coffeelint/bin/coffeelint .
+
+test: compile-tests run-coffee-link
+	./node_modules/mocha/bin/mocha ./test-compiled/**/*.js

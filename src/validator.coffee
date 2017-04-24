@@ -2,13 +2,16 @@
 * @file   Source code for Validator.
 * @author Alvaro Juste
 ###
-"use strict";
+"use strict"
 
 {UUID} = require './uuid'
+
+# coffeelint: disable=max_line_length
 RegExps =
-  email : /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i,
+  email : /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i, # .ignore
   time : /^(([0-9])|([0-1][0-9])|(2[0-3]))(:(([0-9])|([0-5][0-9]))){1,2}$/,
   defaultStandardDate : /^\d{4}-\d{1,2}-\d{1,2}$/
+# coffeelint: enable=max_line_length
 
 ###*
 * @function Validates if input string is a UUID.
@@ -29,7 +32,8 @@ isEmail = (input) -> RegExps.email.test input
 * @param    {*} input The input to validate.
 * @returns  {Boolean} True when empty string.
 ###
-isEmptyString = (input) -> typeof input is 'string' and input.trim().length is 0
+isEmptyString = (input) ->
+  typeof input is 'string' and input.trim().length is 0
 
 ###*
 * @function Checks if a input is time.
@@ -43,7 +47,8 @@ isTime = (input) -> typeof input is 'string' and RegExps.time.test input
 * @param    {*} input The input to validate.
 * @returns  {Boolean} True when valid standard date.
 ###
-isStandardDate = (input) -> typeof input is 'string' and RegExps.defaultStandardDate.test input
+isStandardDate = (input) ->
+  typeof input is 'string' and RegExps.defaultStandardDate.test input
 
 ###*
 * @function Check if input is a string and length is correct.
@@ -73,7 +78,8 @@ checkStringLength = (input = '', maxLength, opts = {}) ->
 isNumber = (input, min, max) ->
   min = min ? Number.MIN_VALUE unless min is 0
   max = max ? Number.MAX_VALUE unless max is 0
-  typeof input is 'number' and not isNaN(input) and input >= min and input <= max
+  typeof input is 'number' and not isNaN(input) and input >= min and
+  input <= max
 
 ###*
 * @function Validates if it's a valid boolean convertible type.
@@ -89,7 +95,9 @@ isBoolean = (input) -> typeof input isnt 'undefined'
 * @param    {Boolean} [canBeUndefined] True when input can be undefined.
 * @returns  {Boolean} True when valid string.
 ###
-isString = (input, canBeNull, canBeUndefined) -> typeof input is 'string' or canBeNull is yes and input is null or canBeUndefined is true and typeof input is 'undefined'
+isString = (input, canBeNull, canBeUndefined) ->
+  typeof input is 'string' or canBeNull is yes and
+  input is null or canBeUndefined is true and typeof input is 'undefined'
 
 ###*
 * @function Validates if it's a valid object.
@@ -98,7 +106,9 @@ isString = (input, canBeNull, canBeUndefined) -> typeof input is 'string' or can
 * @param    {Boolean} [canBeUndefined] True when input can be undefined.
 * @returns  {Boolean} True when valid object.
 ###
-isObject = (input, canBeNull, canBeUndefined) -> typeof input is 'object' or input is null and canBeNull is yes or typeof input is 'undefined' and canBeUndefined is yes
+isObject = (input, canBeNull, canBeUndefined) ->
+  typeof input is 'object' or input is null and
+  canBeNull is yes or typeof input is 'undefined' and canBeUndefined is yes
 
 ###*
 * @function Validates if it's a array
@@ -106,22 +116,28 @@ isObject = (input, canBeNull, canBeUndefined) -> typeof input is 'object' or inp
 * @param    {Boolean} [canBeEmpty] True when array can be empty
 * @returns  {Boolean} True when valid array.
 ###
-isArray = (input, canBeEmpty) -> input instanceof Array and (input.length isnt 0 or canBeEmpty is yes)
+isArray = (input, canBeEmpty) -> input instanceof Array and
+  (input.length isnt 0 or canBeEmpty is yes)
 
 ###*
 * @function Validates if it's a valid function.
 * @param    {*} input Input
-* @param    {Number} [numberOfArguments] Number of arguments the function must have.
+* @param    {Number} [numberOfArguments] Number of arguments the function
+*           must have.
 * @returns  {Boolean} True when valid object.
 ###
-isFunction = (input, numberOfArguments) -> typeof input is 'function' and (not isNumber(numberOfArguments) or input.length is numberOfArguments)
+isFunction = (input, numberOfArguments) ->
+  typeof input is 'function' and (not isNumber(numberOfArguments) or
+  input.length is numberOfArguments)
 
 ###*
 * @function Validates if it's a valid date.
 * @param    {*} input Input
 * @returns  {Boolean} True when valid date.
 ###
-isDate = (input) -> (isNumber(input) or isString(input) or input instanceof Date) and not isNaN(new Date(input).getTime())
+isDate = (input) ->
+  (isNumber(input) or isString(input) or input instanceof Date) and
+  not isNaN(new Date(input).getTime())
 
 module.exports =
   Validator : {
