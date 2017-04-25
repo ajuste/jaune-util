@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ajuste/jaune-util.svg?branch=master)](https://travis-ci.org/ajuste/jaune-util)
+[![Build Status](https://travis-ci.org/ajuste/jaune-util.svg?branch=master)](https://travis-ci.org/ajuste/jaune-util)[![Coverage Status](https://coveralls.io/repos/ajuste/jaune-util/badge.svg?branch=master)](https://coveralls.io/r/ajuste/jaune-util?branch=master)
 
 # jaune-util package
 
@@ -90,5 +90,3 @@ evaluateName('foo.fn.i[(p1, p2)]', {
   p1: 2, p2: 10 }) // returns {arg1: 12, arg2: 20}
 
 ```
-
-
