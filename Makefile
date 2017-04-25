@@ -22,4 +22,7 @@ run-coffee-link:
 	./node_modules/coffeelint/bin/coffeelint .
 
 test: compile-tests run-coffee-link
-	./node_modules/mocha/bin/mocha ./test-compiled/**/*.js
+	./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha ./test-compiled/**/*.js
+
+cover:
+	cat ./coverage/lcov.info | ./node_modules/.bin/coveralls
